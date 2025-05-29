@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Flowchart Maker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Interactive Flowchart Maker</h1>
+        <div class="download-section">
+            <select id="bgColorSelect">
+                <option value="white">White BG</option>
+                <option value="transparent">No BG</option>
+                <option value="#f0f0f0">Light Gray</option>
+                <option value="#000000">Black</option>
+            </select>
+            <select id="formatSelect">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="pdf">PDF</option>
+            </select>
+            <button id="downloadBtn" class="tool-btn">Download</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="panel-header">Mermaid Code Editor</div>
+            <textarea class="code-editor" id="mermaidCode" placeholder="Enter your Mermaid flowchart code here...">flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Process 1]
+    B -->|No| D[Process 2]
+    C --> E[End]
+    D --> E</textarea>
+            <div class="editor-toolbar">
+                <button class="tool-btn" id="updateBtn">Update Preview</button>
+                <button class="tool-btn" id="toggleEditBtn">Toggle Edit Mode</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="panel-header">
+                Interactive Preview
+                <span id="editModeIndicator" class="edit-indicator">Edit Mode: OFF</span>
+            </div>
+            
+            <div class="preview-toolbar">
+                <button class="tool-btn" id="addNodeBtn">+ Add Node</button>
+                <button class="tool-btn" id="connectModeBtn">🔗 Connect Nodes</button>
+                <button class="tool-btn" id="resetViewBtn">↻ Reset View</button>
+            </div>
+
+            <div id="mermaidPreview" class="mermaid-preview">
+                <div class="mermaid" id="mermaidDiagram"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Panel -->
+    <div class="property-panel" id="propertyPanel">
+        <h3>Node Properties</h3>
+        <label>Text:</label>
+        <input type="text" id="nodeText" placeholder="Enter text">
+        
+        <label>Background Color:</label>
+        <input type="color" id="nodeBgColor" value="#ffffff">
+        <input type="checkbox" id="noBgColor"> Transparent
+        
+        <label>Border Color:</label>
+        <input type="color" id="nodeBorderColor" value="#3498db">
+        
+        <label>Text Color:</label>
+        <input type="color" id="nodeTextColor" value="#000000">
+        
+        <label>Font Size:</label>
+        <input type="range" id="fontSize" min="10" max="24" value="14">
+        <span id="fontSizeValue">14px</span>
+        
+        <label>Shape:</label>
+        <select id="nodeShape">
+            <option value="rect">Rectangle</option>
+            <option value="round">Rounded</option>
+            <option value="diamond">Diamond</option>
+            <option value="circle">Circle</option>
+        </select>
+        
+        <button class="tool-btn danger" id="deleteNode">Delete Node</button>
+        <button class="tool-btn" id="closePanel">Close</button>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-item" id="editText">Edit Text</div>
+        <div class="context-item" id="changeColor">Change Color</div>
+        <div class="context-item" id="deleteItem">Delete</div>
+        <div class="context-item" id="duplicateNode">Duplicate</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
